@@ -33,6 +33,7 @@ RUN cmake .. \
         -DCMAKE_INSTALL_PREFIX=/opt/trinitycore \
         -DTOOLS=${TOOLS} \
         -DWITH_WARNINGS=0 \
+        -DBUILD_PLAYERBOT_V2=1 \
     && make -j"${BUILD_JOBS}" \
     && make install
 
