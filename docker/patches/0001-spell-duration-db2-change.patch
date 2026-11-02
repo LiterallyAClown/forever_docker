@@ -21,6 +21,31 @@ index 4b713b8ff2..c9b19c76bb 100644
  };
  
  struct SpellEffectLoadInfo
+diff --git a/src/server/game/DataStores/DB2Metadata.h b/src/server/game/DataStores/DB2Metadata.h
+index d06b97bad7..fd6b8340a0 100644
+--- a/src/server/game/DataStores/DB2Metadata.h
++++ b/src/server/game/DataStores/DB2Metadata.h
+@@ -21124,6 +21124,7 @@ struct SpellDurationMeta
+         { .Type = FT_INT,                  .ArraySize =  1, .IsSigned =  true },
+         { .Type = FT_INT,                  .ArraySize =  1, .IsSigned =  true },
+         { .Type = FT_INT,                  .ArraySize =  1, .IsSigned =  true },
++        { .Type = FT_INT,                  .ArraySize =  1, .IsSigned =  true },
+     };
+ 
+     static constexpr DB2Meta Instance =
+@@ -21131,9 +21132,9 @@ struct SpellDurationMeta
+         .FileDataId         = 1137828,
+         .IndexField         = -1,
+         .ParentIndexField   = -1,
+-        .FieldCount         = 3,
+-        .FileFieldCount     = 3,
+-        .LayoutHash         = 0xA931BD2B,
++        .FieldCount         = 4,
++        .FileFieldCount     = 4,
++        .LayoutHash         = 0x4FDF0951,
+         .Fields             = Fields
+     };
+ };
 diff --git a/src/server/game/DataStores/DB2Structure.h b/src/server/game/DataStores/DB2Structure.h
 index 5ef436e918..e28ed2d301 100644
 --- a/src/server/game/DataStores/DB2Structure.h
