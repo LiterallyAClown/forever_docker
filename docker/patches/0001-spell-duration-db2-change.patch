@@ -1,0 +1,30 @@
+diff --git a/src/server/game/DataStores/DB2LoadInfo.h b/src/server/game/DataStores/DB2LoadInfo.h
+index 4b713b8ff2..41b484750b 100644
+--- a/src/server/game/DataStores/DB2LoadInfo.h
++++ b/src/server/game/DataStores/DB2LoadInfo.h
+@@ -5360,11 +5360,12 @@ struct SpellDurationLoadInfo
+     {
+         { .IsSigned = false, .Type = FT_INT, .Name = "ID" },
+         { .IsSigned = true, .Type = FT_INT, .Name = "Duration" },
++        { .IsSigned = true, .Type = FT_INT, .Name = "DurationPerLevel" },
+         { .IsSigned = true, .Type = FT_INT, .Name = "MaxDuration" },
+         { .IsSigned = true, .Type = FT_INT, .Name = "DurationPerResource" },
+     };
+ 
+-    static constexpr DB2LoadInfo Instance{ Fields, 4, &SpellDurationMeta::Instance, HOTFIX_SEL_SPELL_DURATION };
++    static constexpr DB2LoadInfo Instance{ Fields, 5, &SpellDurationMeta::Instance, HOTFIX_SEL_SPELL_DURATION };
+ };
+ 
+ struct SpellEffectLoadInfo
+diff --git a/src/server/game/DataStores/DB2Structure.h b/src/server/game/DataStores/DB2Structure.h
+index 5ef436e918..e28ed2d301 100644
+--- a/src/server/game/DataStores/DB2Structure.h
++++ b/src/server/game/DataStores/DB2Structure.h
+@@ -3901,6 +3901,7 @@ struct SpellDurationEntry
+ {
+     uint32 ID;
+     int32 Duration;
++    int32 DurationPerLevel;
+     int32 MaxDuration;
+     int32 DurationPerResource;
+ };
