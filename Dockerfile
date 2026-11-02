@@ -11,7 +11,7 @@ FROM ubuntu:${UBUNTU_VERSION} AS build
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates git cmake make gcc g++ clang \
+        ca-certificates git cmake ninja-build gcc g++ clang \
         libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -28,22 +28,22 @@ ARG BUILD_JOBS=4
 # TOOLS=1: also build mapextractor / vmap4extractor / vmap4assembler / mmaps_generator
 ARG TOOLS=1
 WORKDIR /src/TrinityCore/build
-RUN cmake .. \
+RUN cmake -GNinja .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/opt/trinitycore \
         -DTOOLS=${TOOLS} \
         -DWITH_WARNINGS=0 \
         -DBUILD_PLAYERBOT_V2=1 \
-    && make -j"${BUILD_JOBS}" \
-    && make install
+    && ninja -j"${BUILD_JOBS}" \
+    && ninja install
 
 # CascLib opens every CASC file O_RDWR on Linux, which fails (EROFS) on the read-only client mount used by the
 # extractor service. Fall back to O_RDONLY: the extractors only read. (Separate layer: incremental rebuild only.)
 RUN sed -i 's|handle = open(szFileName, oflag \| O_LARGEFILE);|handle = open(szFileName, oflag \| O_LARGEFILE);\n        if(handle == -1 \&\& oflag == O_RDWR \&\& (errno == EROFS \|\| errno == EACCES))\n            handle = open(szFileName, O_RDONLY \| O_LARGEFILE);|' \
         /src/TrinityCore/dep/CascLib/src/common/FileStream.cpp \
     && grep -q "errno == EROFS" /src/TrinityCore/dep/CascLib/src/common/FileStream.cpp \
-    && make -j"${BUILD_JOBS}" \
-    && make install
+    && ninja -j"${BUILD_JOBS}" \
+    && ninja install
 
 ############################ database release ############################
 FROM ubuntu:${UBUNTU_VERSION} AS tdb

@@ -1,8 +1,13 @@
 diff --git a/src/server/game/DataStores/DB2LoadInfo.h b/src/server/game/DataStores/DB2LoadInfo.h
-index 4b713b8ff2..41b484750b 100644
+index 4b713b8ff2..c9b19c76bb 100644
 --- a/src/server/game/DataStores/DB2LoadInfo.h
 +++ b/src/server/game/DataStores/DB2LoadInfo.h
-@@ -5360,11 +5360,12 @@ struct SpellDurationLoadInfo
+@@ -5356,15 +5356,16 @@ struct SpellCooldownsLoadInfo
+ 
+ struct SpellDurationLoadInfo
+ {
+-    static constexpr DB2FieldMeta Fields[4] =
++    static constexpr DB2FieldMeta Fields[5] =
      {
          { .IsSigned = false, .Type = FT_INT, .Name = "ID" },
          { .IsSigned = true, .Type = FT_INT, .Name = "Duration" },
